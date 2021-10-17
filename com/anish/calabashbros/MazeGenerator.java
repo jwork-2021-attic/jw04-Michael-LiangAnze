@@ -1,3 +1,5 @@
+package com.anish.calabashbros;
+
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Random;
@@ -16,15 +18,25 @@ class MazeGenerator {
     }
 
     public void generateMaze() {
-        stack.push(new Node(0,0));
-        while (!stack.empty()) {
-            Node next = stack.pop();
-            if (validNextNode(next)) {
-                maze[next.y][next.x] = 1;
-                ArrayList<Node> neighbors = findNeighbors(next);
-                randomlyAddNodesToStack(neighbors);
+        while(true){
+            stack.push(new Node(0,0));
+            while (!stack.empty()) {
+                Node next = stack.pop();
+                if (validNextNode(next)) {
+                    maze[next.y][next.x] = 1;
+                    ArrayList<Node> neighbors = findNeighbors(next);
+                    randomlyAddNodesToStack(neighbors);
+                }
+            }
+            if(maze[dimension-1][dimension-1] == 1){
+                break;
+            }
+            else{
+                clearMaze();
+                stack.clear();
             }
         }
+        
     }
 
     public String getRawMaze() {
@@ -33,6 +45,18 @@ class MazeGenerator {
             sb.append(Arrays.toString(row) + "\n");
         }
         return sb.toString();
+    }
+
+    public int[][]getMyMaze(){
+        return maze;
+    }
+
+    public void clearMaze(){
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                maze[i][j] = 1;
+            }
+        }
     }
 
     public String getSymbolicMaze() {
