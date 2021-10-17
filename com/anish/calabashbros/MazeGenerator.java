@@ -5,14 +5,14 @@ import java.util.Stack;
 import java.util.Random;
 import java.util.Arrays;
 
-class MazeGenerator {
+public class MazeGenerator {
     
     private Stack<Node> stack = new Stack<>();
     private Random rand = new Random();
     private int[][] maze;
     private int dimension;
 
-    MazeGenerator(int dim) {
+    public MazeGenerator(int dim) {
         maze = new int[dim][dim];
         dimension = dim;
     }
@@ -54,7 +54,7 @@ class MazeGenerator {
     public void clearMaze(){
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                maze[i][j] = 1;
+                maze[i][j] = 0;
             }
         }
     }
