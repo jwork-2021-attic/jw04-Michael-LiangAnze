@@ -58,6 +58,13 @@ public class DFS{
         // down right up left 
         Tuple<Integer,Integer>[] temp= new Tuple[4];
         int size = 0;
+        if(y - 1 >= 0){ // left
+            if(map[x][y-1] == 8){
+                temp[size] = new Tuple(x,y-1);
+                size++;
+            }
+        }
+
         if(x + 1 <= dimension - 1){ // down
             if(map[x+1][y] == 8){
                 temp[size] = new Tuple(x+1,y);
@@ -70,18 +77,15 @@ public class DFS{
                 size++;
             }
         }
+
         if(x - 1 >= 0){ //up
             if(map[x-1][y] == 8){
                 temp[size] = new Tuple(x-1,y);
                 size++;
             }
         }
-        if(y - 1 >= 0){ // left
-            if(map[x][y-1] == 8){
-                temp[size] = new Tuple(x,y-1);
-                size++;
-            }
-        }
+
+
 
         Tuple<Integer,Integer>[] res= new Tuple[size];
         for(int i = 0;i < size;i++){
