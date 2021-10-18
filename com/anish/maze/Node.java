@@ -1,4 +1,4 @@
-package com.anish.calabashbros;
+package com.anish.maze;
 
 public class Node {
     public final int x;

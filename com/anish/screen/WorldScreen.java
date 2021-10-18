@@ -10,7 +10,7 @@ import com.anish.calabashbros.Calabash;
 import com.anish.calabashbros.World;
 import com.anish.calabashbros.Wall;
 import com.anish.calabashbros.Floor;
-import com.anish.calabashbros.MazeGenerator;
+import com.anish.maze.MazeGenerator;
 
 
 import asciiPanel.AsciiPanel;
