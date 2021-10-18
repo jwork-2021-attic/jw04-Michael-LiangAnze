@@ -23,7 +23,7 @@ public class WorldScreen implements Screen {
     String steps[];
     Calabash calabash;
     int[][]maze;
-    public static final int mazeSize = 10;
+    public static final int mazeSize = 30;
     
 
     public WorldScreen() {
@@ -37,10 +37,10 @@ public class WorldScreen implements Screen {
         dfsAlgorithm.searchPath();
         String plan = dfsAlgorithm.getPlan();
         steps = parsePlan(plan);
-        for(String s:steps){
-            System.out.println(s);
-        }
-        System.out.println('\n');
+        // for(String s:steps){
+        //     System.out.println(s);
+        // }
+        // System.out.println('\n');
     }
 
     private void generateMyMaze(){
@@ -66,7 +66,7 @@ public class WorldScreen implements Screen {
     }
 
     private void execute(String step,String lastStep) {
-        System.out.println("step:"+step+" lastStep:"+lastStep);
+        // System.out.println("step:"+step+" lastStep:"+lastStep);
         String[] couple1 = step.split("<->");
         String[] couple2 = lastStep.split("<->");
         world.put(calabash,Integer.parseInt(couple1[1]),Integer.parseInt(couple1[0]));

@@ -45,13 +45,7 @@ public class DFS{
             if(dfsSubroutine(movableNeighbor[i])){// yes! this way!
                 return true;
             }
-            else{// so sad, come back to p now
-                // if(i == movableNeighbor.length-1){ // no neighbor can lead to final
-                //     plan += "" + movableNeighbor[i].first + "<->" + movableNeighbor[i].second + "<->" + 10 +"\n"; 
-                // }
-                // else{
-                //     plan += "" + movableNeighbor[i].first + "<->" + movableNeighbor[i].second  + "<->" + 9 + "\n"; 
-                // }     
+            else{// so sad, come back to p now    
                 plan += "" + p.first + "<->" + p.second + "<->"+ "10" + "\n";
             }
         }
@@ -61,21 +55,9 @@ public class DFS{
     }
 
     private Tuple[]searchNeighbor(int x,int y){
-        // up left down right
+        // down right up left 
         Tuple<Integer,Integer>[] temp= new Tuple[4];
         int size = 0;
-        if(x - 1 >= 0){ //up
-            if(map[x-1][y] == 8){
-                temp[size] = new Tuple(x-1,y);
-                size++;
-            }
-        }
-        if(y - 1 >= 0){ // left
-            if(map[x][y-1] == 8){
-                temp[size] = new Tuple(x,y-1);
-                size++;
-            }
-        }
         if(x + 1 <= dimension - 1){ // down
             if(map[x+1][y] == 8){
                 temp[size] = new Tuple(x+1,y);
@@ -88,6 +70,19 @@ public class DFS{
                 size++;
             }
         }
+        if(x - 1 >= 0){ //up
+            if(map[x-1][y] == 8){
+                temp[size] = new Tuple(x-1,y);
+                size++;
+            }
+        }
+        if(y - 1 >= 0){ // left
+            if(map[x][y-1] == 8){
+                temp[size] = new Tuple(x,y-1);
+                size++;
+            }
+        }
+
         Tuple<Integer,Integer>[] res= new Tuple[size];
         for(int i = 0;i < size;i++){
             res[i] = temp[i];

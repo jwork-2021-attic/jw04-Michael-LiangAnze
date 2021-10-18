@@ -3,8 +3,8 @@ import java.awt.Color;
 
 public class World {
 
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 20;
+    public static final int WIDTH = 35;
+    public static final int HEIGHT = 35;
 
 
     private Tile<Thing>[][] tiles;
