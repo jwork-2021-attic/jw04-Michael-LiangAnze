@@ -2,7 +2,8 @@ package com.anish.screen;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-
+import java.awt.Color;
+import javax.lang.model.type.NullType;
 
 import com.anish.calabashbros.BubbleSorter;
 import com.anish.calabashbros.Calabash;
@@ -19,26 +20,27 @@ import com.anish.algorithm.DFS;
 public class WorldScreen implements Screen {
 
     private World world;
-    String[] sortSteps;
+    String steps[];
+    Calabash calabash;
     int[][]maze;
-    public static final int mazeSize = 40;
-    String plan;
+    public static final int mazeSize = 10;
+    
 
     public WorldScreen() {
         world = new World();
         generateMyMaze();
 
-        Calabash calabash = new Calabash(new Color(240, 240, 0), 1, world);
+        calabash = new Calabash(new Color(240, 240, 0), 1, world); // original place
         world.put(calabash, 0, 0);
 
         DFS dfsAlgorithm = new DFS(maze,mazeSize);
         dfsAlgorithm.searchPath();
-        plan = dfsAlgorithm.getPlan();
-        String steps[] = parsePlan(plan);
-        System.out.println(steps.length);
+        String plan = dfsAlgorithm.getPlan();
+        steps = parsePlan(plan);
         for(String s:steps){
             System.out.println(s);
         }
+        System.out.println('\n');
     }
 
     private void generateMyMaze(){
@@ -47,7 +49,7 @@ public class WorldScreen implements Screen {
         maze = gennerator.getMyMaze();
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
-                if(maze[i][j] == 0){
+                if(maze[j][i] == 0){
                     world.put(new Wall(this.world),i,j);
                 }  
             }
@@ -55,26 +57,27 @@ public class WorldScreen implements Screen {
             world.put(new Wall(world),mazeSize,i);
         }
         world.put(new Wall(this.world),mazeSize,mazeSize);
-        // world.put(new Floor(this.world),mazeSize-1,mazeSize);
+        world.put(new Floor(this.world,Color.gray),mazeSize-1,mazeSize);
+        // System.out.println("SYMBOLIC MAZE\n" + gennerator.getSymbolicMaze());
     }
 
     private String[] parsePlan(String plan) {
         return plan.split("\n");
     }
 
-    private void execute(Calabash[] bros, String step) {
-        String[] couple = step.split("<->");
-        getBroByRank(bros, Integer.parseInt(couple[0])).swap(getBroByRank(bros, Integer.parseInt(couple[1])));
+    private void execute(String step,String lastStep) {
+        System.out.println("step:"+step+" lastStep:"+lastStep);
+        String[] couple1 = step.split("<->");
+        String[] couple2 = lastStep.split("<->");
+        world.put(calabash,Integer.parseInt(couple1[1]),Integer.parseInt(couple1[0]));
+        if(Integer.parseInt(couple1[2]) == 9){ // gray
+            world.put(new Floor(this.world,Color.green),Integer.parseInt(couple2[1]),Integer.parseInt(couple2[0]));
+        }
+        else{
+            world.put(new Floor(this.world,Color.red),Integer.parseInt(couple2[1]),Integer.parseInt(couple2[0]));
+        }
     }
 
-    private Calabash getBroByRank(Calabash[] bros, int rank) {
-        for (Calabash bro : bros) {
-            if (bro.getRank() == rank) {
-                return bro;
-            }
-        }
-        return null;
-    }
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
@@ -88,15 +91,15 @@ public class WorldScreen implements Screen {
         }
     }
 
-    int i = 0;
+    int i = 1;
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
 
-        // if (i < this.sortSteps.length) {
-        //     this.execute(bros, sortSteps[i]);
-        //     i++;
-        // }
+        if (i < this.steps.length) {
+            this.execute(steps[i],steps[i-1]);
+            i++;
+        }
 
         return this;
     }

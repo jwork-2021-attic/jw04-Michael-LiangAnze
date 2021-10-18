@@ -1,10 +1,10 @@
 package com.anish.calabashbros;
-
+import java.awt.Color;
 
 public class World {
 
-    public static final int WIDTH = 50;
-    public static final int HEIGHT = 50;
+    public static final int WIDTH = 20;
+    public static final int HEIGHT = 20;
 
 
     private Tile<Thing>[][] tiles;
@@ -14,9 +14,6 @@ public class World {
         if (tiles == null) {
             tiles = new Tile[WIDTH][HEIGHT];
         }
-
-
-        
 
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {   

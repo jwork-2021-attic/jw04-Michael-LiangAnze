@@ -63,7 +63,7 @@ public class MazeGenerator {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                sb.append(maze[i][j] == 1 ? "*" : " ");
+                sb.append(maze[i][j] == 1 ? " " : "*");
                 sb.append("  "); 
             }
             sb.append("\n");

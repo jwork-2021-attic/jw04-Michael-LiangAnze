@@ -5,7 +5,7 @@ public class DFS{
 
     int[][]map;     // 0 is wall,8 is white,9 is gray,10 is black
     int dimension;
-    String plan;
+    String plan = new String();
     private Stack<Tuple<Integer,Integer>> stack = new Stack<Tuple<Integer,Integer>>();
 
     public DFS(int[][]inputMap, int dimension){
@@ -32,19 +32,30 @@ public class DFS{
 
     private boolean dfsSubroutine(Tuple<Integer,Integer>p){
         map[p.first][p.second] = 9; // is searching now
-        plan += "" + p.first + "<->" + p.second + "\n"; // add plan
+        plan += "" + p.first + "<->" + p.second + "<->"+ "9" + "\n"; // add plan
+        // System.out.println("" + p.first + "<->" + p.second);
         if(p.first == dimension - 1 && p.second == dimension - 1)
             return true;
         Tuple<Integer,Integer>[]movableNeighbor = searchNeighbor(p.first,p.second);
-        for(Tuple<Integer,Integer> t:movableNeighbor){
-            if(dfsSubroutine(t)){// yes! this way!
+        // for(Tuple<Integer,Integer> t:movableNeighbor){
+        //     System.out.println("current movable:" + t.first + "<->" + t.second);
+        // }
+        for(int i = 0;i < movableNeighbor.length;i++){
+        //for(Tuple<Integer,Integer> t:movableNeighbor){
+            if(dfsSubroutine(movableNeighbor[i])){// yes! this way!
                 return true;
             }
             else{// so sad, come back to p now
-                plan += "" + t.first + "<->" + t.second + "\n"; // add plan
+                // if(i == movableNeighbor.length-1){ // no neighbor can lead to final
+                //     plan += "" + movableNeighbor[i].first + "<->" + movableNeighbor[i].second + "<->" + 10 +"\n"; 
+                // }
+                // else{
+                //     plan += "" + movableNeighbor[i].first + "<->" + movableNeighbor[i].second  + "<->" + 9 + "\n"; 
+                // }     
+                plan += "" + p.first + "<->" + p.second + "<->"+ "10" + "\n";
             }
         }
-
+        
         map[p.first][p.second] = 10; // finish searching
         return false;
     }
@@ -53,27 +64,27 @@ public class DFS{
         // up left down right
         Tuple<Integer,Integer>[] temp= new Tuple[4];
         int size = 0;
-        if(y - 1 >= 0){
+        if(x - 1 >= 0){ //up
+            if(map[x-1][y] == 8){
+                temp[size] = new Tuple(x-1,y);
+                size++;
+            }
+        }
+        if(y - 1 >= 0){ // left
             if(map[x][y-1] == 8){
                 temp[size] = new Tuple(x,y-1);
                 size++;
             }
         }
-        if(x - 1 >= 0){
-            if(map[x-1][y] == 8){
-                temp[size] = new Tuple(x,y-1);
-                size++;
-            }
-        }
-        if(y + 1 < dimension){
-            if(map[x][y+1] == 8){
-                temp[size] = new Tuple(x,y+1);
-                size++;
-            }
-        }
-        if(x + 1 >= 0){
+        if(x + 1 <= dimension - 1){ // down
             if(map[x+1][y] == 8){
                 temp[size] = new Tuple(x+1,y);
+                size++;
+            }
+        }
+        if(y + 1 <= dimension - 1){ // right
+            if(map[x][y+1] == 8){
+                temp[size] = new Tuple(x,y+1);
                 size++;
             }
         }
@@ -81,7 +92,6 @@ public class DFS{
         for(int i = 0;i < size;i++){
             res[i] = temp[i];
         }
-        System.out.println(res.length);
         return res;
     }
     public String getPlan(){
