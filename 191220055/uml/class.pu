@@ -1,0 +1,65 @@
+@startuml
+
+class World{
+    int WIDTH
+    int HEIGHT
+    Tile<Thing>[][] tiles
+
+    World()
+    Thing get(int,int)
+    void put(Thing,int,int)
+}
+
+class Tile{
+    T thing
+    int xPos
+    int yPos
+
+    Tile()  
+    Tile(int,int)
+    T getThing()
+    void setThing(T)
+    int getxPos()
+    int getyPos()
+    void setxPos(int)
+    void setyPos(int)
+}
+
+class Thing{
+    World world
+    Tile<? extends Thing> tile   
+    Color color 
+    char glyph
+
+    Thing(Color, char, World)
+    int getX()
+    int getY()
+    void setTile(Tile<? extends Thing> tile)
+    Color getColor()
+    char getGlyph()
+}
+
+
+
+class Wall{
+    Wall(World)
+}
+
+class Floor{
+    Floor(World)
+}
+
+class Creature{
+    Creature()
+    void moveTo()
+}
+
+class Calabash{
+    ...
+}
+Wall --|> Thing: 继承
+Floor --|> Thing: 继承
+Creature --|> Thing: 继承
+Calabash --|> Creature: 继承
+
+@enduml
