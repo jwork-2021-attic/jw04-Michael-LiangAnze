@@ -1,12 +1,10 @@
 package com.anish.algorithm;
-import java.util.Stack;
 
 public class DFS{
 
     int[][]map;     // 0 is wall,8 is white,9 is gray,10 is black
     int dimension;
     String plan = new String();
-    private Stack<Tuple<Integer,Integer>> stack = new Stack<Tuple<Integer,Integer>>();
 
     public DFS(int[][]inputMap, int dimension){
 

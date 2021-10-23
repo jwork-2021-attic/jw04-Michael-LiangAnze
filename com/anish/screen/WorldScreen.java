@@ -69,7 +69,8 @@ public class WorldScreen implements Screen {
         // System.out.println("step:"+step+" lastStep:"+lastStep);
         String[] couple1 = step.split("<->");
         String[] couple2 = lastStep.split("<->");
-        world.put(calabash,Integer.parseInt(couple1[1]),Integer.parseInt(couple1[0]));
+        // world.put(calabash,Integer.parseInt(couple1[1]),Integer.parseInt(couple1[0]));
+        calabash.moveTo(Integer.parseInt(couple1[1]), Integer.parseInt(couple1[0]));
         if(Integer.parseInt(couple1[2]) == 9){ // gray
             world.put(new Floor(this.world,Color.green),Integer.parseInt(couple2[1]),Integer.parseInt(couple2[0]));
         }
